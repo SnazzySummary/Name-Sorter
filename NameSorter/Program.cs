@@ -1,8 +1,12 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using NameSorter.Models;
+using NameSorter.Services;
 
 Console.WriteLine("Hello, World!");
+// FileIO file = new FileIO("sad");
 
+string[] lines = TextFileIO.ReadLines("./unsorted-names-list.txt");
+TextFileIO.WriteLines("./sorted-names-list.txt", lines);
 string[] name1_Names = { "Abc", "Abc" };
 FullName name1 = new FullName(name1_Names);
 
