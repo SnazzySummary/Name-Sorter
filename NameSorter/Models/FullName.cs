@@ -14,8 +14,9 @@ namespace NameSorter.Models
       Params:
       nameArray - An array of strings, the first being given names, the last being a surname.
     */
-    public FullName(string[] nameArray)
+    public FullName(string inputNames)
     {
+      string[] nameArray = inputNames.Split(' ');
       names = nameArray;
     }
 
@@ -46,7 +47,7 @@ namespace NameSorter.Models
     {
       if (obj == null) return 1;
 
-      FullName otherFullName = obj as FullName;
+      FullName? otherFullName = obj as FullName;
       if (otherFullName != null)
       {
         // compare the names with string.CompareTo
