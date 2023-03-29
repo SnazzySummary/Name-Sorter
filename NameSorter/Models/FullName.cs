@@ -1,7 +1,6 @@
 namespace NameSorter.Models
 {
   /*
-    FullName
     Models a persons given names and surname.
   */
   public class FullName : IComparable
@@ -10,7 +9,7 @@ namespace NameSorter.Models
     private string[] names;
 
     /*
-      Constructor for FullName.
+      Constructor for FullName
       Params:
       nameArray - An array of strings, the first being given names, the last being a surname.
     */
@@ -21,7 +20,7 @@ namespace NameSorter.Models
     }
 
     /*
-      ToString override.
+      ToString override
       Returns a space separated string of each name, the last bieng a surname.
     */
     public override String ToString()
@@ -38,7 +37,7 @@ namespace NameSorter.Models
     }
 
     /*
-      CompareTo Override.
+      CompareTo Override
       Compares each name in the FullName first by last name, then by any given names the person may have.
       As soon as an alphabetical difference is found, that difference is returned.
       If no difference is found, 0 is returned.
@@ -50,7 +49,7 @@ namespace NameSorter.Models
       FullName? otherFullName = obj as FullName;
       if (otherFullName != null)
       {
-        // compare the names with string.CompareTo
+        // Compare the names with string.CompareTo
         string[] otherNames = otherFullName.names;
 
         int lastNameIndex = names.Length - 1;
@@ -78,6 +77,24 @@ namespace NameSorter.Models
       {
         throw new ArgumentException("Object is not a FullName");
       }
+    }
+
+    /*
+      StringToFullName
+      Takes a String of space separated names and returns a FullName object.
+    */
+    public static FullName StringToFullName(string names)
+    {
+      return new FullName(names);
+    }
+
+    /*
+      StringToFullName
+      Takes a FullName object and returns a String of space separated names.
+    */
+    public static string FullNameToString(FullName fullName)
+    {
+      return fullName.ToString();
     }
   }
 }

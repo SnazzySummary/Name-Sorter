@@ -1,4 +1,5 @@
-﻿using NameSorter.Services;
+﻿using NameSorter.Models;
+using NameSorter.Services;
 
 namespace NameSorter
 {
@@ -8,7 +9,10 @@ namespace NameSorter
     {
       string inputFilePath = args[0];
       string[] names = TextFileIO.ReadLines(inputFilePath);
-      string[] sortedNames = FullNameSorter.SortNames(names);
+
+      FullNameCollection allNames = new FullNameCollection(names);
+      allNames.Sort();
+      string[] sortedNames = allNames.ToStringArray();
 
       Console.WriteLine(String.Join(Environment.NewLine, sortedNames));
       TextFileIO.WriteLines("./sorted-names-list.txt", sortedNames);
