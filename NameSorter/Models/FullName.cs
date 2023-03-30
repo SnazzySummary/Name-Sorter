@@ -5,13 +5,13 @@ namespace NameSorter.Models
   */
   public class FullName : IComparable
   {
-    // An array of names, the last being a surname.
+    // An array of names.
     private string[] names;
 
     /*
-      Constructor for FullName
+      Constructs a FullName using a string of space separated names.
       Params:
-      nameArray - An array of strings, the first being given names, the last being a surname.
+      inputNames - a string of space separated names.
     */
     public FullName(string inputNames)
     {
@@ -20,58 +20,61 @@ namespace NameSorter.Models
     }
 
     /*
-      ToString override
-      Returns a space separated string of each name, the last bieng a surname.
-    */
-    public override String ToString()
-    {
-      int lastNameIndex = names.Length - 1;
-
-      String output = names[0];
-      for (int i = 1; i <= lastNameIndex; i++)
-      {
-        output += " " + names[i];
-      }
-
-      return output;
-    }
-
-    /*
       CompareTo Override
-      Compares each name in the FullName first by last name, then by any given names the person may have.
-      As soon as an alphabetical difference is found, that difference is returned.
-      If no difference is found, 0 is returned.
+      Compares each FullName alphabetically, starting from the last name and ending at the first.
+      Params:
+      obj - Another FullName object to compare to.
+      Returns:
+      int - an integer that indicates whether the value of this instance is less than,
+            equal to, or greater than the value of the specified object or the other.
     */
     public int CompareTo(object? obj)
     {
       if (obj == null) return 1;
-
       FullName? otherFullName = obj as FullName;
       if (otherFullName != null)
       {
-        // Compare the names with string.CompareTo
         string[] otherNames = otherFullName.names;
 
-        int lastNameIndex = names.Length - 1;
-        int otherLastNameIndex = otherNames.Length - 1;
+        // Start with the last name of each FullName object.
+        int lastNamePointer = names.Length - 1;
+        int otherLastNamePointer = otherNames.Length - 1;
 
-        // Start with last name, if equal, move back one name and retry
-        while (lastNameIndex >= 0 && otherLastNameIndex >= 0)
+        // Compare all names until one of the pointers passes 0 or a difference is found.
+        while (lastNamePointer >= 0 && otherLastNamePointer >= 0)
         {
-          // Result of current comparison
-          int compared = names[lastNameIndex].CompareTo(otherNames[otherLastNameIndex]);
 
+          int compared = names[lastNamePointer].CompareTo(otherNames[otherLastNamePointer]);
+
+          // If a difference is found, return the difference.
           if (compared != 0)
           {
             return compared;
           }
           else
           {
-            lastNameIndex--;
-            otherLastNameIndex--;
+            // Move to the next name.
+            lastNamePointer--;
+            otherLastNamePointer--;
           }
         }
-        return 0;
+
+        /*
+          If one pointer runs out of names but the other has some left, the one with
+          more names comes after.
+        */
+        if (lastNamePointer >= 0)
+        {
+          return 1; // This FullName has more names and comes after the Other one.
+        }
+        else if (otherLastNamePointer >= 0)
+        {
+          return -1; // The other FullName has more names and comes after this one.
+        }
+        else
+        {
+          return 0;
+        }
       }
       else
       {
@@ -80,21 +83,21 @@ namespace NameSorter.Models
     }
 
     /*
-      StringToFullName
-      Takes a String of space separated names and returns a FullName object.
+      ToString override
+      Returns:
+      string - a space separated string of names.
     */
-    public static FullName StringToFullName(string names)
+    public override string ToString()
     {
-      return new FullName(names);
-    }
+      int lastNameIndex = names.Length - 1;
 
-    /*
-      StringToFullName
-      Takes a FullName object and returns a String of space separated names.
-    */
-    public static string FullNameToString(FullName fullName)
-    {
-      return fullName.ToString();
+      string output = names[0];
+      for (int i = 1; i <= lastNameIndex; i++)
+      {
+        output += " " + names[i];
+      }
+
+      return output;
     }
   }
 }

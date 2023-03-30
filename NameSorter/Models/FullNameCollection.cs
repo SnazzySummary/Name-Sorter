@@ -1,28 +1,39 @@
 namespace NameSorter.Models
 {
   /*
-    Models a Collection of FullName objects.
+    Holds a Collection of FullName objects.
   */
   public class FullNameCollection
   {
-    private List<FullName> fullNames;
+    private List<FullName> fullNames = new List<FullName>();
 
     /*
       Constructs a FullNameCollection using an array of strings, each string being space separated names.
+      Params:
+      fullNames - An array of strings, each string containing space separated names.
     */
-    public FullNameCollection(string[] inputFullNames)
+    public FullNameCollection(string[] fullNames)
     {
-      fullNames = Array.ConvertAll(inputFullNames, new Converter<string, FullName>(FullName.StringToFullName)).ToList();
+      for (int i = 0; i < fullNames.Length; i++)
+      {
+        this.fullNames.Add(new FullName(fullNames[i]));
+      }
     }
 
     /*
-      ToStringArray
-      Returns the list of FullName objects as an array of strings, each string being all the names
-      of that FullName separated by spaces.
+      Returns the list of FullNames in the form of an array of strings.
+      Returns:
+      string[] - an array of strings, each string containing space separated names.
     */
     public string[] ToStringArray()
     {
-      return Array.ConvertAll(fullNames.ToArray(), new Converter<FullName, string>(FullName.FullNameToString));
+      string[] names = new string[fullNames.Count];
+      for (int i = 0; i < fullNames.Count; i++)
+      {
+        names[i] = fullNames[i].ToString();
+      }
+
+      return names;
     }
 
     /*

@@ -79,4 +79,14 @@ public class FullNameTests
 
     Assert.Equal("Object is not a FullName", exception.Message);
   }
+
+  [Fact]
+  public void NameAfterRoundTripDoesNotModify()
+  {
+    FullName Bruce = new FullName("Bruce Ab");
+    string nameAfterRoundTrip = Bruce.ToString();
+    string expected = "Bruce Ab";
+
+    Assert.Equal(nameAfterRoundTrip, expected);
+  }
 }

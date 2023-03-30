@@ -39,4 +39,36 @@ public class FullNameCollectionTests
       Assert.Equal(sortedNames[i], expectedNames[i]);
     }
   }
+
+  [Fact]
+  public void ExtraNamesAreSortedAndComeAfter()
+  {
+    string[] names = { "zzz ccc bbb aaa", "ccc bbb aaa", "aaa ccc bbb aaa" };
+
+    FullNameCollection nameCollection = new FullNameCollection(names);
+    nameCollection.Sort();
+    string[] sortedNames = nameCollection.ToStringArray();
+    string[] expectedNames = { "ccc bbb aaa", "aaa ccc bbb aaa", "zzz ccc bbb aaa" };
+
+    for (int i = 0; i < names.Length; i++)
+    {
+      Assert.Equal(sortedNames[i], expectedNames[i]);
+    }
+  }
+
+  [Fact]
+  public void StringArrayRoundTripDoesNotModify()
+  {
+    string[] names = { "James Stellar", "Ken John Nordwic" };
+
+    FullNameCollection nameCollection = new FullNameCollection(names);
+    string[] namesAfterRoundTrip = nameCollection.ToStringArray();
+
+    string[] expected = { "James Stellar", "Ken John Nordwic" };
+
+    for (int i = 0; i < names.Length; i++)
+    {
+      Assert.Equal(namesAfterRoundTrip[i], expected[i]);
+    }
+  }
 }

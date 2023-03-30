@@ -1,15 +1,42 @@
 namespace NameSorter.Services
 {
-  public static class TextFileIO
+  /*
+    TextFileIO
+    Reads and Writes an array of strings to the specified files. Each string is a line in the text file.
+  */
+  public class TextFileIO
   {
-    public static string[] ReadLines(string filePath)
+    private string inputFilePath;
+    private string outputFilePath;
+
+    /*
+      Constructs the TextFileIO object with specified input and output file paths.
+      Params:
+      inputFilePath - a string representing the filePath to read from.
+      outputFilePath - a string representing the filePath to write to.
+    */
+    public TextFileIO(string inputFilePath, string outputFilePath)
     {
-      return File.ReadAllLines(filePath);
+      this.inputFilePath = inputFilePath;
+      this.outputFilePath = outputFilePath;
     }
 
-    public static void WriteLines(string filePath, string[] lines)
+    /*
+      Reads the input text file and returns and array of strings. Each string is a line of the file.
+    */
+    public string[] ReadLines()
     {
-      File.WriteAllText(filePath, String.Join(Environment.NewLine, lines));
+      return File.ReadAllLines(inputFilePath);
+    }
+
+    /*
+      Writes each string from the given array as a line in the output text file.
+      Params:
+      lines - an array of strings, each representing a line of text to write.
+    */
+    public void WriteLines(string[] lines)
+    {
+      File.WriteAllText(outputFilePath, String.Join(Environment.NewLine, lines));
     }
   }
 }
