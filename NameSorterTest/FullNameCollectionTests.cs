@@ -8,6 +8,9 @@ namespace NameSorterTest;
 
 public class FullNameCollectionTests
 {
+  /*
+    The names should be sorted such that the last names are in the order of aaa, bbb, ccc, eee.
+  */
   [Fact]
   public void abceInThatOrder()
   {
@@ -40,6 +43,9 @@ public class FullNameCollectionTests
     }
   }
 
+  /*
+    The strings with extra names should be moved down the array and then compared against eachother.
+  */
   [Fact]
   public void ExtraNamesAreSortedAndComeAfter()
   {

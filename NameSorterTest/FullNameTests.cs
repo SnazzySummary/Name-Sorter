@@ -44,7 +44,7 @@ public class FullNameTests
   }
 
   [Fact]
-  public void BruceHasMoreNames()
+  public void BruceHasMoreNamesSoHeIsAfterAnn()
   {
     FullName Bruce = new FullName("Bruce Baker Ann Ab");
     FullName Ann = new FullName("Ann Ab");
@@ -56,7 +56,7 @@ public class FullNameTests
   }
 
   [Fact]
-  public void AnnHasMoreNames()
+  public void AnnHasMoreNamesSoSheIsAfterBruce()
   {
     FullName Bruce = new FullName("Bruce Ab");
     FullName Ann = new FullName("Ann Sam Bruce Ab");
@@ -68,7 +68,7 @@ public class FullNameTests
   }
 
   [Fact]
-  public void OneIsNotAFullName()
+  public void OneIsNotAFullNameThrowsException()
   {
     FullName Bruce = new FullName("Bruce Ab");
     string Ann = "Ann Ab";
